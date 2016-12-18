@@ -1,0 +1,78 @@
+/*
+* Copyright @ Ye XIA <qazxiaye@126.com> & Xinxiu TAO <taozi_1101@163.com>
+* 
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*  http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "imgStruct.h"
+
+extern double pgm_weight_r;
+extern double pgm_weight_g;
+extern double pgm_weight_b;
+
+ImgStruct* Convert(ImgStruct* ppm)
+{
+    ImgStruct* res = malloc(sizeof(ImgStruct));
+    if(res == NULL)
+    {
+        printf("%smemory allocation error!%s\n", RED, NRM);
+        return NULL;
+    }
+
+    res->type   = PGM;
+    res->width  = ppm->width;
+    res->height = ppm->height;
+    res->max    = ppm->max;
+    res->pixels = malloc(sizeof(uint64_t) * res->height * res->width);
+    if(res->pixels == NULL)
+    {
+        printf("%smemory allocation error!%s\n", RED, NRM);
+        free(res);
+
+        return NULL;
+    }
+
+    uint64_t *p_dst = res->pixels; 
+	uint64_t* p_src = ppm->pixels;
+
+    const uint64_t max = 65535;
+    int i, j;
+    for(i = 0; i < res->height; i++)
+    {
+        for(j = 0; j < res->width; j++)
+        { 
+			uint64_t pixel = * p_src;
+
+            int r = (pixel & (max << 32)) >> 32;
+            int g = (pixel & (max << 16)) >> 16;
+            int b = pixel & max;
+
+            * p_dst = (int) (pgm_weight_r * r + pgm_weight_g * g + pgm_weight_b * b);
+
+			p_dst++;
+			p_src++;
+        }
+    }
+
+    printf("%sFile converting finished.%s\n", GRN, NRM);
+    return res;
+}
+
