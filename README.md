@@ -16,15 +16,15 @@ Usage :
 <br>
  - original ppm image
 
- ![](build/NetTopology.ppm)
+ ![](build/NetTopology.ppm.gif)
 
  - generated pgm image
 
- ![](build/NetTopology.pgm)
+ ![](build/NetTopology.pgm.gif)
 
  - generated pbm image
 
- ![](build/NetTopology.pbm)
+ ![](build/NetTopology.pbm.gif)
 
  license: Apache License 2.0
 
