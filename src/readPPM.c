@@ -171,9 +171,9 @@ ImgStruct* ReadPPM(FILE* file)
     uint64_t* ptr = res->pixels;
 
     int i, j;
-    for(i = 0; i < res->height; i++)
+    for(i = 0; i < res->height && isLegal; i++)
     {
-        for(j = 0; j < res->width; j++)
+        for(j = 0; j < res->width && isLegal; j++)
         {
             int r = NextPixelColor(file);
             int g = NextPixelColor(file);
