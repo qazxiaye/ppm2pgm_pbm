@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "utils.h"
 #include "imgStruct.h"
 
 static char* ChangeExtension(char* fileName, char* ext)
@@ -43,7 +44,7 @@ static char* ChangeExtension(char* fileName, char* ext)
         res = malloc( nameLen + strlen(ext) + 2);
         if(res == NULL)
         {
-            printf("%smemory allocation error!%s\n", RED, NRM);
+            ColorShow("memory allocation error!", RED);
             return NULL;
         }
 
@@ -56,7 +57,7 @@ static char* ChangeExtension(char* fileName, char* ext)
         res = malloc(strlen(fileName) + strlen(ext) + 2);
         if(res == NULL)
         {
-            printf("%smemory allocation error!%s\n", RED, NRM);
+            ColorShow("memory allocation error!", RED);
             return NULL;
         }
 
@@ -83,7 +84,7 @@ int SaveImg(ImgStruct* img, char* inFileName)
             outFileName = ChangeExtension(inFileName, "bk.ppm");
             break;
 		default:
-            printf("%sunexpected image type!%s\n", RED, NRM);
+            ColorShow("unexpected image type!", RED);
 			return 1;
     }
 
@@ -118,7 +119,7 @@ int SaveImg(ImgStruct* img, char* inFileName)
     }
 
     fclose(file);
-    printf("%sFile %s has been written.%s\n", GRN, outFileName, NRM);
+    printf("%sFile %s has been generated.%s\n", GRN, outFileName, NRM);
     free(outFileName);
 
     return 0;

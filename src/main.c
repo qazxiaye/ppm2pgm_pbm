@@ -19,9 +19,10 @@
 * under the License.
 */
 
-#include "imgStruct.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "utils.h"
+#include "imgStruct.h"
 
 //global variables used in convertion
 double pbm_threshold = 0.28;
@@ -63,7 +64,7 @@ int main(int argc, char** argv)
 {
     if(argc < 2)
     {
-        printf("%sPlease pass ppm images to be converted as parameters.\n%s", YEL, NRM);
+        ColorShow("Please pass ppm images to be converted as parameters.", YEL);
         return 0;
     }
 
@@ -76,7 +77,7 @@ int main(int argc, char** argv)
         FILE* f = fopen(argv[i], "r");
         if(f == NULL)
         {
-            printf("%sfile %s does not exist!%s\n",RED , argv[i], NRM);
+            printf("%sfile %s does not exist!%s\n", RED, argv[i], NRM);
             continue;
         }
 

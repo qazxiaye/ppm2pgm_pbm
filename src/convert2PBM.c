@@ -20,8 +20,8 @@
 */
 
 #include <stdint.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include "utils.h"
 #include "imgStruct.h"
 
 extern double pbm_threshold;
@@ -31,7 +31,7 @@ ImgStruct* Convert(ImgStruct* ppm)
     ImgStruct* res = malloc(sizeof(ImgStruct));
     if(res == NULL)
     {
-        printf("%smemory allocation error!%s\n", RED, NRM);
+        ColorShow("memory allocation error!", RED);
         return NULL;
     }
 
@@ -42,7 +42,7 @@ ImgStruct* Convert(ImgStruct* ppm)
     res->pixels = malloc(sizeof(uint64_t) * res->height * res->width);
     if(res->pixels == NULL)
     {
-        printf("%smemory allocation error!%s\n", RED, NRM);
+        ColorShow("memory allocation error!", RED);
         free(res);
 
         return NULL;
@@ -71,7 +71,7 @@ ImgStruct* Convert(ImgStruct* ppm)
         }
     } 
 
-    printf("%sFile converting finished.%s\n", GRN, NRM);
+    ColorShow("File converting finished.", GRN);
     return res;
 }
 

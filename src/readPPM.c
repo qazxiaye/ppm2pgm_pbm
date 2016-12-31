@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include "utils.h"
 #include "imgStruct.h"
 
 const int MaxPixelDigitNB = 5; //max value of a pixel 65535
@@ -135,7 +136,7 @@ static int ReadPPMHead(FILE* file, ImgStruct* img)
 
     if(img->max > PIXEL_MAX)
     {
-        printf("%smax value exceed 65535!%s\n", RED, NRM);
+        ColorShow("max value exceed 65535!", RED);
         return 1;
     }
 
@@ -149,13 +150,13 @@ ImgStruct* ReadPPM(FILE* file)
     ImgStruct* res = malloc(sizeof(ImgStruct));
     if(res == NULL)
     {
-        printf("%smemory allocation error!%s\n", RED, NRM);
+        ColorShow("memory allocation error!", RED);
         return NULL;
     }
 
     if(ReadPPMHead(file, res))
     {
-        printf("%sfile reading fail!%s\n", RED, NRM);
+        ColorShow("file reading fail!", RED);
         free(res);
         return NULL;
     }
@@ -163,7 +164,7 @@ ImgStruct* ReadPPM(FILE* file)
     res->pixels = malloc(sizeof(uint64_t) * res->width * res->height);
     if(res->pixels == NULL)
     {
-        printf("%smemory allocation error!%s\n", RED, NRM);
+        ColorShow("memory allocation error!", RED);
         free(res);
         return NULL;
     }
@@ -185,11 +186,11 @@ ImgStruct* ReadPPM(FILE* file)
 
     if(!isLegal)
     {
-        printf("%sillegal file found!%s\n", RED, NRM);
+        ColorShow("illegal file found!", RED);
         return NULL;
     }
 
-    printf("%sFile reading finished.%s\n", GRN, NRM);
+    ColorShow("File reading finished.", GRN);
     return res;
 }
 
