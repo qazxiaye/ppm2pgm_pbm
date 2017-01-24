@@ -7,11 +7,11 @@ Threshold used to convert to pbm and weights of red, green and blue colors used 
 <br>
 Usage :
 
- - cd build
- - cmake ../src
- - make
- - ./2pgm {list of ppm files}
- - ./2pbm {list of ppm files}
+ 1. `cd build`
+ 2. `cmake ../src`
+ 3. `make`
+ 4. `./2pgm {list of ppm files}`
+ 5. `./2pbm {list of ppm files}`
 
 <br>
  - original ppm image
